@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dhir Anupalli — Finance + Computer Science</title>
+  <meta name="description" content="Dhir Anupalli — Finance and Computer Science student at Rutgers Business School. Building AI tools and learning markets.">
+  <!-- Link previews (LinkedIn, X, iMessage). Add og.png later: 1200x630 image. -->
+  <meta property="og:title" content="Dhir Anupalli — Finance + Computer Science">
+  <meta property="og:description" content="Finance + CS student at Rutgers. Building AI tools and learning markets.">
+  <meta property="og:image" content="og.png">
+  <meta property="og:type" content="profile">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a1128;
+      --surface: #111a36;
+      --surface-raised: #151f3d;
+      --text: #e8edf7;
+      --muted: #a0abc4;
+      --accent: #7dd3fc;
+      --border: rgba(232, 237, 247, 0.11);
+      --border-hover: rgba(125, 211, 252, 0.55);
+      --nav-bg: rgba(10, 17, 40, 0.88);
+      --shadow: rgba(0, 0, 0, 0.18);
+      --star-rgb: 205, 225, 255;
+      --nebula-blue: rgba(61, 99, 217, 0.16);
+      --nebula-violet: rgba(107, 79, 209, 0.10);
+      --planet-rim: rgba(125, 211, 252, 0.45);
+      --font-heading: "Space Grotesk", sans-serif;
+      --font-body: "Inter", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+      --max-width: 860px;
+      --nav-height: 58px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      min-width: 320px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .space-scene {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 100% 2%, var(--nebula-blue), transparent 38%),
+        radial-gradient(ellipse at 0% 100%, var(--nebula-violet), transparent 34%),
+        radial-gradient(ellipse at 0% 0%, #0d1630 0%, #080d1d 48%, #05070f 100%);
+      isolation: isolate;
+    }
+    .space-scene::before {
+      content: "";
+      position: absolute;
+      width: min(82vw, 920px);
+      aspect-ratio: 1;
+      right: max(-390px, -30vw);
+      bottom: max(-730px, -72vh);
+      border-radius: 50%;
+      background: radial-gradient(circle at 36% 22%, #10192b 0%, #080c17 50%, #03050b 76%);
+      border: 1px solid rgba(125, 211, 252, 0.08);
+      box-shadow: 0 -5px 20px rgba(125, 211, 252, 0.08);
+    }
+    .nebula {
+      position: absolute;
+      z-index: 0;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+    .nebula-blue {
+      width: min(58vw, 720px);
+      height: min(50vh, 520px);
+      top: -18vh;
+      right: -12vw;
+      background: var(--nebula-blue);
+    }
+    .nebula-violet {
+      width: min(48vw, 600px);
+      height: min(44vh, 440px);
+      bottom: -18vh;
+      left: -12vw;
+      background: var(--nebula-violet);
+    }
+    .planet-rim {
+      position: absolute;
+      width: min(82vw, 920px);
+      aspect-ratio: 1;
+      right: max(-390px, -30vw);
+      bottom: max(-730px, -72vh);
+      border-radius: 50%;
+      border-top: 1px solid var(--planet-rim);
+      transform: rotate(-15deg);
+      filter: drop-shadow(0 -2px 7px rgba(125, 211, 252, 0.15));
+    }
+    .orbit-line {
+      position: absolute;
+      width: min(115vw, 1450px);
+      height: min(38vw, 460px);
+      right: -27vw;
+      bottom: -21vh;
+      border: 1px solid rgba(232, 237, 247, 0.05);
+      border-radius: 50%;
+      transform: rotate(-18deg);
+    }
+    .space-scene::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 48%, rgba(1, 3, 9, 0.48) 100%);
+    }
+    main, nav, footer { position: relative; z-index: 1; }
+    #starfield {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      background-image: linear-gradient(currentColor, currentColor);
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      background-size: 0 1px;
+      transition: background-size 180ms ease, color 180ms ease;
+    }
+    a:hover, a:focus-visible { background-size: 100% 1px; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 16px; }
+    section { padding: 68px 0; border-top: 1px solid var(--border); }
+    .view-panel[hidden] { display: none; }
+    .view-panel.view-enter { animation: view-enter 420ms cubic-bezier(.2,.75,.25,1) both; }
+    /* Sections only fade as a whole: a transform here would knock the fixed corner planet out of place */
+    main > .view-panel:not(.hero).view-enter { animation-name: view-fade; }
+    main > .view-panel:not(.hero).view-enter > *:not(.panel-planet) { animation: view-content 460ms ease both; }
+    main > .view-panel:not(.hero).view-enter > *:nth-child(2) { animation-delay: 45ms; }
+    main > .view-panel:not(.hero).view-enter > *:nth-child(3) { animation-delay: 90ms; }
+    main > .view-panel:not(.hero).view-enter > *:nth-child(4) { animation-delay: 135ms; }
+    @keyframes view-enter {
+      from { opacity: 0; transform: translateY(12px) perspective(900px) rotateX(-1deg); filter: blur(2px); }
+      to { opacity: 1; transform: translateY(0) perspective(900px) rotateX(0); filter: blur(0); }
+    }
+    @keyframes view-fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes view-content {
+      from { opacity: 0.35; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; }
+    h2 { font-size: 1.75rem; margin-bottom: 8px; }
+    .section-intro { color: var(--muted); margin-bottom: 32px; }
+    .mono { font-family: var(--font-mono); font-size: 0.78rem; }
+    .kicker {
+      color: var(--accent);
+      font: 500 0.72rem/1.4 var(--font-mono);
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .kicker::before { content: "// "; opacity: 0.72; }
+
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 200ms ease, border-color 200ms ease, backdrop-filter 200ms ease;
+    }
+    nav.scrolled {
+      background: var(--nav-bg);
+      border-color: var(--border);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    nav .wrap {
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+      min-height: var(--nav-height);
+      padding-top: 8px; padding-bottom: 8px;
+    }
+    .main-tab {
+      min-height: 40px;
+      padding: 8px 12px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: 500 0.82rem/1.2 var(--font-body);
+      transition: color 200ms ease, background 200ms ease, border-color 200ms ease, transform 200ms ease;
+    }
+    .main-tab:hover { color: var(--text); border-color: var(--border); transform: translateY(-2px); }
+    .main-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .main-tab[aria-selected="true"] {
+      color: var(--accent);
+      border-color: rgba(125, 211, 252, 0.2);
+      background: rgba(125, 211, 252, 0.07);
+      box-shadow: inset 0 -2px var(--accent);
+    }
+
+    .hero { padding: 84px 0 70px; border-top: none; }
+    .hero h1 { font-size: clamp(2.6rem, 8vw, 4rem); line-height: 1.08; }
+    .hero .pitch { font-size: 1.12rem; color: var(--muted); margin: 18px 0 24px; max-width: 620px; }
+    .hero-label { color: var(--accent); margin-bottom: 14px; }
+    .links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .hero-load { opacity: 0; transform: translateY(12px); animation: rise-in 560ms ease forwards; }
+    .hero-load:nth-child(1) { animation-delay: 60ms; }
+    .hero-load:nth-child(2) { animation-delay: 160ms; }
+    .hero-load:nth-child(3) { animation-delay: 260ms; }
+    .hero-load:nth-child(4) { animation-delay: 360ms; }
+    @keyframes rise-in { to { opacity: 1; transform: translateY(0); } }
+    .solar-system {
+      position: relative;
+      width: min(100%, 760px);
+      height: 470px;
+      margin: 8px auto 18px;
+      isolation: isolate;
+    }
+    .solar-orbit {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border: 1px solid rgba(205, 225, 255, 0.13);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(var(--orbit-rotation, 0deg));
+      pointer-events: none;
+    }
+    .solar-orbit:nth-child(1) { width: 34%; height: 34%; --orbit-rotation: 24deg; }
+    .solar-orbit:nth-child(2) { width: 54%; height: 52%; --orbit-rotation: -18deg; }
+    .solar-orbit:nth-child(3) { width: 76%; height: 72%; --orbit-rotation: 12deg; }
+    .solar-orbit:nth-child(4) { width: 92%; height: 94%; --orbit-rotation: -8deg; }
+    .solar-sun {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      width: 164px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 224, 158, 0.55);
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 32%, #fff5d6 0%, #ffc76b 22%, #f08746 47%, #a93837 72%, rgba(93, 30, 48, 0.92) 100%);
+      box-shadow: 0 0 26px rgba(255, 177, 89, 0.42), 0 0 88px rgba(246, 130, 69, 0.2), inset -12px -10px 24px rgba(62, 17, 38, 0.35);
+      transform: translate(-50%, -50%);
+      animation: sun-breathe 5s ease-in-out infinite;
+    }
+    .solar-sun h1 {
+      max-width: 140px;
+      color: #311b24;
+      font-size: 1.3rem;
+      line-height: 1.12;
+      text-align: center;
+      text-shadow: 0 1px rgba(255, 255, 255, 0.42);
+    }
+    @keyframes sun-breathe {
+      0%, 100% { box-shadow: 0 0 26px rgba(255, 177, 89, 0.38), 0 0 78px rgba(246, 130, 69, 0.16), inset -12px -10px 24px rgba(62, 17, 38, 0.35); }
+      50% { box-shadow: 0 0 34px rgba(255, 201, 115, 0.58), 0 0 108px rgba(246, 130, 69, 0.25), inset -12px -10px 24px rgba(62, 17, 38, 0.35); }
+    }
+    .solar-planet {
+      --planet-color: #f4c95d;
+      position: absolute;
+      z-index: 3;
+      left: var(--planet-x);
+      top: var(--planet-y);
+      display: grid;
+      justify-items: center;
+      gap: 5px;
+      min-width: 72px;
+      padding: 4px;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font: 500 0.67rem/1.2 var(--font-mono);
+      transform: translate(-50%, -50%);
+      transition: transform 220ms ease, color 220ms ease;
+    }
+    .solar-planet:hover, .solar-planet:focus-visible {
+      color: #fff;
+      transform: translate(-50%, -50%) scale(1.12);
+    }
+    .solar-planet:focus-visible { outline: 1px solid var(--planet-color); outline-offset: 3px; border-radius: 50%; }
+    .planet-core {
+      display: block;
+      width: var(--planet-size, 30px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 50%;
+      background: radial-gradient(circle at 31% 26%, rgba(255,255,255,.96), var(--planet-color) 28%, color-mix(in srgb, var(--planet-color), #111 42%) 76%);
+      box-shadow: 0 0 16px color-mix(in srgb, var(--planet-color), transparent 42%), inset -5px -4px 8px rgba(0,0,0,.35);
+      animation: planet-drift 4s ease-in-out infinite;
+    }
+    .solar-planet:nth-of-type(6) .planet-core { animation-delay: -1.2s; }
+    .solar-planet:nth-of-type(7) .planet-core { animation-delay: -2.1s; }
+    .solar-planet:nth-of-type(8) .planet-core { animation-delay: -0.7s; }
+    .solar-planet:nth-of-type(9) .planet-core { animation-delay: -2.8s; }
+    .solar-planet:nth-of-type(10) .planet-core { animation-delay: -1.7s; }
+    @keyframes planet-drift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .planet-name { padding: 3px 6px; border-radius: 3px; background: rgba(5, 9, 20, 0.76); }
+    .solar-planet[data-target="projects"] { --planet-color: #ff9864; --planet-size: 35px; --planet-x: 10%; --planet-y: 50%; }
+    .solar-planet[data-target="professional"] { --planet-color: #64d6bd; --planet-size: 29px; --planet-x: 31%; --planet-y: 13%; }
+    .solar-planet[data-target="writing"] { --planet-color: #f4c95d; --planet-size: 25px; --planet-x: 75%; --planet-y: 14%; }
+    .solar-planet[data-target="personal"] { --planet-color: #f27f9c; --planet-size: 32px; --planet-x: 89%; --planet-y: 66%; }
+    .solar-planet[data-target="contact"] { --planet-color: #86c9f2; --planet-size: 22px; --planet-x: 34%; --planet-y: 88%; }
+    .planet-warp {
+      position: fixed;
+      z-index: 20;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle at 31% 26%, rgba(255,255,255,.96), var(--planet-color) 28%, color-mix(in srgb, var(--planet-color), #111 42%) 76%);
+      box-shadow: 0 0 24px color-mix(in srgb, var(--planet-color), transparent 55%);
+      will-change: transform, opacity;
+    }
+    .view-panel { position: relative; }
+    .panel-planet {
+      position: fixed;
+      z-index: 2;
+      top: calc(var(--nav-height) + 28px);
+      right: clamp(16px, 4vw, 56px);
+      padding: 4px;
+      border: 0;
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font: 500 0.72rem/1.2 var(--font-mono);
+      transition: transform 220ms ease, color 220ms ease;
+    }
+    .panel-planet:hover, .panel-planet:focus-visible { color: #fff; transform: scale(1.08); }
+    .panel-planet:focus-visible { outline: 1px solid var(--planet-color); outline-offset: 3px; }
+    body.is-warping .panel-planet { pointer-events: none; }
+    .panel-planet .planet-core {
+      width: calc(var(--planet-size, 30px) * 4.5);
+      box-shadow: 0 0 48px color-mix(in srgb, var(--planet-color), transparent 40%), inset -14px -12px 26px rgba(0,0,0,.4);
+    }
+    @property --tint {
+      syntax: "<color>";
+      inherits: true;
+      initial-value: transparent;
+    }
+    .page-tint {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--tint), transparent 45%) 0%, color-mix(in srgb, var(--tint), transparent 82%) 32%, transparent 68%);
+      transition: --tint 1s ease;
+    }
+    body.is-warping { overflow: hidden; }
+    body.is-warping .solar-planet { pointer-events: none; }
+
+    .project {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+    }
+    .project:hover { transform: translateY(-3px); border-color: var(--border-hover); box-shadow: 0 12px 28px var(--shadow); }
+    .project-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+    .project h3 { font-size: 1.25rem; }
+    .code-id { color: var(--muted); margin-left: 6px; }
+    .status {
+      color: var(--muted); font: 500 0.68rem/1.4 var(--font-mono);
+      display: inline-flex; align-items: center; gap: 8px;
+      white-space: nowrap;
+    }
+    .status::before { content: ""; width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%; background: var(--accent); animation: pulse 3s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+    .tagline { margin: 8px 0 12px; font-weight: 500; }
+    .project ul { padding-left: 20px; margin-bottom: 12px; color: var(--text); }
+    .project li { padding-left: 3px; margin: 3px 0; }
+    .project li::marker { color: var(--muted); }
+    .stack { color: var(--muted); }
+    .project > p:last-child { margin-top: 10px; }
+
+    .project-console {
+      display: grid;
+      grid-template-columns: minmax(170px, 0.72fr) minmax(0, 1.8fr);
+      gap: clamp(18px, 4vw, 42px);
+      align-items: stretch;
+      perspective: 1300px;
+    }
+    .project-rail { display: flex; flex-direction: column; gap: 8px; }
+    .project-tab {
+      position: relative;
+      width: 100%;
+      min-height: 74px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: rgba(8, 14, 32, 0.48);
+      color: var(--muted);
+      text-align: left;
+      cursor: pointer;
+      font: 500 0.72rem/1.5 var(--font-mono);
+      transition: border-color 220ms ease, color 220ms ease, background 220ms ease, transform 260ms ease;
+    }
+    .project-tab:hover { color: var(--text); border-color: var(--border-hover); transform: translateX(3px); }
+    .project-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .project-tab[aria-selected="true"] {
+      border-color: var(--accent);
+      color: var(--text);
+      background: linear-gradient(100deg, rgba(125, 211, 252, 0.12), rgba(17, 26, 54, 0.66) 72%);
+      box-shadow: inset 2px 0 var(--accent), 0 8px 24px rgba(0, 0, 0, 0.16);
+    }
+    .project-tab-index { display: block; color: var(--accent); margin-bottom: 5px; }
+    .project-tab-name { display: block; font-family: var(--font-heading); font-size: 0.96rem; }
+    .project-stage-wrap { min-width: 0; perspective: 1300px; }
+    .project-stage {
+      --tilt-x: 0deg;
+      --tilt-y: 0deg;
+      --shift-x: 0px;
+      --shift-y: 0px;
+      position: relative;
+      min-height: 100%;
+      transform-style: preserve-3d;
+      transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+      transition: transform 300ms cubic-bezier(.2,.75,.25,1);
+    }
+    .project-stage::before,
+    .project-stage::after {
+      content: "";
+      position: absolute;
+      inset: 12px -9px -10px 10px;
+      border: 1px solid rgba(125, 211, 252, 0.14);
+      border-radius: 7px;
+      background: rgba(15, 26, 52, 0.24);
+      transform: translateZ(-24px);
+      pointer-events: none;
+      transition: transform 350ms ease, border-color 350ms ease;
+    }
+    .project-stage::after {
+      inset: 6px -4px -5px 5px;
+      border-color: rgba(125, 211, 252, 0.09);
+      background: rgba(9, 17, 37, 0.35);
+      transform: translateZ(-12px);
+    }
+    .project-stage-wrap:hover .project-stage::before { transform: translate3d(4px, 5px, -24px); border-color: rgba(125, 211, 252, 0.25); }
+    .project-stage-wrap:hover .project-stage::after { transform: translate3d(2px, 3px, -12px); }
+    .project-stage .project {
+      position: relative;
+      z-index: 1;
+      min-height: 100%;
+      margin: 0;
+      padding: clamp(22px, 3vw, 34px);
+      background:
+        linear-gradient(140deg, rgba(125, 211, 252, 0.055), transparent 46%),
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        rgba(12, 20, 42, 0.91);
+      background-size: auto, 34px 34px, 34px 34px, auto;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.06);
+      transform: translate3d(var(--shift-x), var(--shift-y), 20px);
+      transition: transform 300ms cubic-bezier(.2,.75,.25,1), border-color 250ms ease, box-shadow 250ms ease;
+    }
+    .project-stage .project:hover { transform: translate3d(var(--shift-x), calc(var(--shift-y) - 2px), 20px); }
+    .project-stage .project[hidden] { display: none; }
+    .project-stage .project.project-enter { animation: project-enter 420ms cubic-bezier(.2,.75,.25,1) both; }
+    @keyframes project-enter {
+      from { opacity: 0; filter: blur(2px); }
+      to { opacity: 1; filter: blur(0); }
+    }
+    .project-stage .project-head { align-items: flex-start; }
+    .project-stage .project h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); }
+    .project-stage .tagline { margin-top: 20px; max-width: 540px; font-size: 1.05rem; }
+    .project-stage .project ul { margin-top: 16px; }
+    .project-stage .project li { margin: 8px 0; }
+    .project-stage .stack { margin-top: 20px; }
+    .personal-card .tile-label { margin-bottom: 6px; }
+    .book-list { list-style: none; padding: 0 !important; margin-top: 22px; display: grid; gap: 10px; }
+    .book {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 14px;
+      align-items: baseline;
+      margin: 0 !important;
+      padding: 12px 14px !important;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: rgba(8, 14, 32, 0.5);
+      transition: border-color 220ms ease, transform 220ms ease, background 220ms ease;
+    }
+    .book:hover { border-color: var(--border-hover); background: rgba(125, 211, 252, 0.06); transform: translateX(4px); }
+    .book-num { grid-row: span 2; color: var(--accent); font: 500 0.72rem/1.5 var(--font-mono); }
+    .book-title { font-family: var(--font-heading); font-weight: 600; color: var(--text); }
+    .book-author { color: var(--muted); font-size: 0.85rem; }
+    .project-enter .book { animation: book-in 420ms cubic-bezier(.2,.75,.25,1) both; }
+    .project-enter .book:nth-child(2) { animation-delay: 50ms; }
+    .project-enter .book:nth-child(3) { animation-delay: 100ms; }
+    .project-enter .book:nth-child(4) { animation-delay: 150ms; }
+    .project-enter .book:nth-child(5) { animation-delay: 200ms; }
+    .project-enter .book:nth-child(6) { animation-delay: 250ms; }
+    @keyframes book-in {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .quote-list { display: grid; gap: 14px; margin-top: 22px; }
+    .quote {
+      margin: 0;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--accent);
+      border-radius: 5px;
+      background: rgba(8, 14, 32, 0.5);
+      transition: border-color 220ms ease, transform 220ms ease, background 220ms ease;
+    }
+    .quote:hover { border-color: var(--border-hover); background: rgba(125, 211, 252, 0.06); transform: translateX(4px); }
+    .quote blockquote { font-family: var(--font-heading); font-size: 1.08rem; line-height: 1.45; color: var(--text); }
+    .quote figcaption { margin-top: 8px; color: var(--muted); font: 500 0.75rem/1.4 var(--font-mono); }
+    .quote cite { font-style: italic; }
+    .project-enter .quote { animation: book-in 420ms cubic-bezier(.2,.75,.25,1) both; }
+    .project-enter .quote:nth-child(2) { animation-delay: 70ms; }
+    .project-enter .quote:nth-child(3) { animation-delay: 140ms; }
+    .project-prompt { color: var(--muted); font: 500 0.65rem/1.5 var(--font-mono); margin: 12px 0 0; }
+    .project-stage .project > p:last-child { margin-top: 12px; }
+
+    .phase { margin-bottom: 32px; }
+    .phase-label {
+      font: 500 0.78rem/1.4 var(--font-mono);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--accent); margin-bottom: 12px;
+    }
+    #professional .phase-label { color: var(--muted); font: 600 0.9rem/1.5 var(--font-body); text-transform: none; letter-spacing: 0; }
+    .entry { border-left: 2px solid var(--border); padding: 0 0 16px 20px; }
+    .entry {
+      --glow: #64d6bd;
+      margin-bottom: 10px;
+      padding-top: 12px; padding-right: 16px;
+      border-radius: 0 6px 6px 0;
+      transition: border-color 260ms ease, background 260ms ease, box-shadow 260ms ease, transform 260ms ease;
+    }
+    .entry:hover {
+      border-left-color: var(--glow);
+      background: linear-gradient(90deg, color-mix(in srgb, var(--glow), transparent 88%), transparent 85%);
+      box-shadow: -1px 0 14px color-mix(in srgb, var(--glow), transparent 55%), 0 10px 30px color-mix(in srgb, var(--glow), transparent 88%);
+      transform: translateX(4px);
+    }
+    .entry:hover h4 { color: #fff; text-shadow: 0 0 14px color-mix(in srgb, var(--glow), transparent 40%); }
+    .entry h4 { font-size: 1.05rem; transition: color 260ms ease, text-shadow 260ms ease; }
+    .entry p { color: var(--muted); font-size: 0.95rem; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; }
+    .tile { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 20px; transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
+    .tile:hover { transform: translateY(-4px); border-color: var(--border-hover); box-shadow: 0 12px 28px var(--shadow); }
+    .tile h3 { font-size: 1rem; margin-bottom: 8px; }
+    .tile ul { list-style: none; color: var(--muted); }
+    .tile-label { display: block; color: var(--accent); font: 500 0.68rem/1.4 var(--font-mono); margin-bottom: 10px; }
+
+    .topic-tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: -12px 0 28px; }
+    .topic-tags li {
+      padding: 5px 11px;
+      border: 1px solid rgba(244, 201, 93, 0.35);
+      border-radius: 999px;
+      background: rgba(244, 201, 93, 0.07);
+      color: #f4c95d;
+      font: 500 0.72rem/1.4 var(--font-mono);
+    }
+    .coming-soon {
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      padding: 48px 20px;
+      border: 1px dashed rgba(244, 201, 93, 0.35);
+      border-radius: 8px;
+      background: radial-gradient(ellipse at center, rgba(244, 201, 93, 0.08), transparent 70%), rgba(8, 14, 32, 0.5);
+      text-align: center;
+    }
+    .coming-soon p { color: var(--muted); font-size: 0.72rem; letter-spacing: 0.08em; }
+    .coming-soon h3 { font-size: clamp(1.6rem, 4vw, 2.2rem); color: #fff; text-shadow: 0 0 18px rgba(244, 201, 93, 0.45); }
+    .signal-dot {
+      width: 10px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #f4c95d;
+      box-shadow: 0 0 0 0 rgba(244, 201, 93, 0.6);
+      animation: signal-pulse 1.8s ease-out infinite;
+    }
+    @keyframes signal-pulse {
+      to { box-shadow: 0 0 0 14px rgba(244, 201, 93, 0); }
+    }
+    .contact-list { list-style: none; display: grid; gap: 12px; margin-top: 20px; font-size: 1.05rem; }
+    .contact-note { color: var(--muted); font: 500 0.78rem/1.4 var(--font-mono); }
+    .post { padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .post .date { color: var(--muted); margin-top: 4px; }
+
+    footer { padding: 32px 0; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 600ms ease, transform 600ms ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 520px) {
+      :root { --nav-height: 54px; }
+      nav .wrap { gap: 4px; justify-content: space-between; }
+      .main-tab { padding: 8px 9px; font-size: 0.76rem; }
+      .hero { padding: 64px 0 56px; }
+      .solar-system { height: 430px; margin-top: 12px; }
+      .solar-sun { width: 142px; }
+      .solar-sun h1 { max-width: 124px; font-size: 1.15rem; }
+      .solar-planet { min-width: 64px; font-size: 0.61rem; }
+      .solar-planet[data-target="projects"] { --planet-x: 16%; --planet-y: 50%; }
+      .solar-planet[data-target="professional"] { --planet-x: 30%; --planet-y: 13%; }
+      .solar-planet[data-target="writing"] { --planet-x: 75%; --planet-y: 15%; }
+      .solar-planet[data-target="personal"] { --planet-x: 85%; --planet-y: 66%; }
+      .solar-planet[data-target="contact"] { --planet-x: 34%; --planet-y: 88%; }
+      section { padding: 54px 0; }
+      .project { padding: 18px; }
+      .project-head { align-items: flex-start; flex-direction: column; gap: 4px; }
+      .project-console { grid-template-columns: 1fr; gap: 16px; }
+      .project-rail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+      .project-tab { min-height: 68px; padding: 9px 8px; }
+      .project-tab-index { margin-bottom: 2px; font-size: 0.62rem; }
+      .project-tab-name { font-size: 0.84rem; }
+      .project-stage .project { padding: 20px 17px; }
+      .project-stage::before { right: -5px; }
+    }
+    @media (max-width: 1100px) {
+      .panel-planet { position: absolute; top: 56px; right: 8px; }
+      .panel-planet .planet-core { width: calc(var(--planet-size, 30px) * 2.2); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .project-stage, .project-stage .project, .project-stage::before, .project-stage::after { transform: none !important; }
+      .project-stage .project.project-enter { animation: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .hero-load { opacity: 1; transform: none; animation: none; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="space-scene" aria-hidden="true">
+    <div class="nebula nebula-blue"></div>
+    <div class="nebula nebula-violet"></div>
+    <div class="page-tint"></div>
+    <div class="orbit-line"></div>
+    <div class="planet-rim"></div>
+    <canvas id="starfield"></canvas>
+  </div>
+
+  <!-- ===================== NAV ===================== -->
+  <nav aria-label="Portfolio sections">
+    <div class="wrap" role="tablist" aria-label="Main sections">
+      <button class="main-tab" id="main-tab-home" type="button" role="tab" aria-selected="true" aria-controls="home" tabindex="0">Home</button>
+      <button class="main-tab" id="main-tab-projects" type="button" role="tab" aria-selected="false" aria-controls="projects" tabindex="-1">Projects</button>
+      <button class="main-tab" id="main-tab-professional" type="button" role="tab" aria-selected="false" aria-controls="professional" tabindex="-1">Professional</button>
+      <button class="main-tab" id="main-tab-writing" type="button" role="tab" aria-selected="false" aria-controls="writing" tabindex="-1">Writing</button>
+      <button class="main-tab" id="main-tab-personal" type="button" role="tab" aria-selected="false" aria-controls="personal" tabindex="-1">Personal</button>
+      <button class="main-tab" id="main-tab-contact" type="button" role="tab" aria-selected="false" aria-controls="contact" tabindex="-1">Contact</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero view-panel" id="home" role="tabpanel" aria-labelledby="main-tab-home" tabindex="0">
+      <p class="hero-label mono hero-load">SYS.ONLINE — RUTGERS, NJ</p>
+      <div class="solar-system" aria-label="Solar system navigation">
+        <span class="solar-orbit" aria-hidden="true"></span>
+        <span class="solar-orbit" aria-hidden="true"></span>
+        <span class="solar-orbit" aria-hidden="true"></span>
+        <span class="solar-orbit" aria-hidden="true"></span>
+        <div class="solar-sun"><h1>Dhir Anupalli</h1></div>
+        <button class="solar-planet" type="button" data-target="projects" aria-label="Open Projects">
+          <span class="planet-core" aria-hidden="true"></span><span class="planet-name">Projects</span>
+        </button>
+        <button class="solar-planet" type="button" data-target="professional" aria-label="Open Professional">
+          <span class="planet-core" aria-hidden="true"></span><span class="planet-name">Professional</span>
+        </button>
+        <button class="solar-planet" type="button" data-target="writing" aria-label="Open Writing">
+          <span class="planet-core" aria-hidden="true"></span><span class="planet-name">Writing</span>
+        </button>
+        <button class="solar-planet" type="button" data-target="personal" aria-label="Open Personal">
+          <span class="planet-core" aria-hidden="true"></span><span class="planet-name">Personal</span>
+        </button>
+        <button class="solar-planet" type="button" data-target="contact" aria-label="Open Contact">
+          <span class="planet-core" aria-hidden="true"></span><span class="planet-name">Contact</span>
+        </button>
+      </div>
+      <!-- TODO: swap in your final one-line pitch -->
+      <p class="pitch hero-load">Finance + CS student at Rutgers. I build AI tools that turn goals into systems, and I'm learning markets from the ground up.</p>
+      <div class="links hero-load">
+        <a href="https://www.linkedin.com/in/dhir-anupalli-53493b159/">LinkedIn</a>
+        <a href="https://github.com/DhirAnu12">GitHub</a>
+        <a href="mailto:hellodhir10@gmail.com">Email</a>
+        <a href="resume.pdf">Résumé</a>
+      </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section class="view-panel" id="projects" role="tabpanel" aria-labelledby="main-tab-projects" tabindex="0" hidden>
+      <p class="kicker">MISSION LOG</p>
+      <h2>Projects</h2>
+      <p class="section-intro">Things I've built.</p>
+
+      <div class="project-console">
+        <div class="project-rail" role="tablist" aria-label="Select a project" aria-orientation="vertical">
+          <button class="project-tab" id="project-tab-robin" type="button" role="tab" aria-selected="true" aria-controls="project-robin" tabindex="0">
+            <span class="project-tab-index">01 / RBN-001</span><span class="project-tab-name">Robin</span>
+          </button>
+          <button class="project-tab" id="project-tab-tree" type="button" role="tab" aria-selected="false" aria-controls="project-tree" tabindex="-1">
+            <span class="project-tab-index">02 / TRE-002</span><span class="project-tab-name">Tree</span>
+          </button>
+          <button class="project-tab" id="project-tab-apex" type="button" role="tab" aria-selected="false" aria-controls="project-apex" tabindex="-1">
+            <span class="project-tab-index">03 / APX-003</span><span class="project-tab-name">Apex</span>
+          </button>
+          <button class="project-tab" id="project-tab-vision" type="button" role="tab" aria-selected="false" aria-controls="project-vision" tabindex="-1">
+            <span class="project-tab-index">04 / VSN-004</span><span class="project-tab-name">Vision</span>
+          </button>
+          <button class="project-tab" id="project-tab-volatile" type="button" role="tab" aria-selected="false" aria-controls="project-volatile" tabindex="-1">
+            <span class="project-tab-index">05 / VOL-005</span><span class="project-tab-name">Volatile</span>
+          </button>
+        </div>
+        <div class="project-stage-wrap">
+          <div class="project-stage">
+      <!-- Copy this whole <article> block for each new project -->
+      <article class="project" id="project-robin" role="tabpanel" aria-labelledby="project-tab-robin" tabindex="0">
+        <div class="project-head">
+          <h3>Robin <span class="code-id mono">RBN-001</span></h3>
+          <span class="status">STATUS: FINISHED</span>
+        </div>
+        <p class="tagline">A local AI voice assistant that listens, acts, and reminds.</p>
+        <ul>
+          <li>Wake-word detection, so it's always ready without a button</li>
+          <li>MCP tool-calling to take real actions, not just answer</li>
+          <li>Reminders and a system tray app</li>
+          <li>Cloud version deployed on Vercel</li>
+          <!-- TODO: add one real number (commands handled, hours used, etc.) -->
+        </ul>
+        <p class="stack mono">Python · OpenAI API · LiveKit · MCP · Vercel</p>
+        <p><a href="https://github.com/DhirAnu12/Robin">GitHub →</a></p>
+      </article>
+
+      <article class="project" id="project-tree" role="tabpanel" aria-labelledby="project-tab-tree" tabindex="0" hidden>
+        <div class="project-head">
+          <h3>Tree <span class="code-id mono">TRE-002</span></h3>
+          <span class="status">STATUS: FINISHED</span>
+        </div>
+        <p class="tagline">A skill tracker that turns goals into skill trees you unlock through practice.</p>
+        <ul>
+          <li>Each goal becomes a tree of smaller skills</li>
+          <li>Logged practice sessions unlock the next branch</li>
+          <!-- TODO: add one real number -->
+        </ul>
+        <p class="stack mono">HTML · CSS · JavaScript</p>
+        <p><a href="https://github.com/DhirAnu12/Tree">GitHub →</a></p>
+      </article>
+
+      <article class="project" id="project-apex" role="tabpanel" aria-labelledby="project-tab-apex" tabindex="0" hidden>
+        <div class="project-head">
+          <h3>Apex <span class="code-id mono">APX-003</span></h3>
+          <span class="status">STATUS: FINISHED</span>
+        </div>
+        <p class="tagline">An AI daily-routine app for long-term goals and mindset.</p>
+        <ul>
+          <li>Tracks long-term goals across daily routines</li>
+          <li>TODO: what the AI actually does for the user</li>
+        </ul>
+        <p class="stack mono">TODO: stack</p>
+        <p><a href="https://github.com/DhirAnu12/Apex">GitHub →</a></p>
+      </article>
+
+      <article class="project" id="project-vision" role="tabpanel" aria-labelledby="project-tab-vision" tabindex="0" hidden>
+        <div class="project-head">
+          <h3>Vision <span class="code-id mono">VSN-004</span></h3>
+          <span class="status">STATUS: FINISHED</span>
+        </div>
+        <p class="tagline">A long-term memory layer for AI coding agents.</p>
+        <ul>
+          <li>Remembers project decisions and code context across sessions</li>
+          <li>Agents read and write to it automatically, so they stop re-learning the codebase</li>
+        </ul>
+        <p class="stack mono">TODO: stack</p>
+        <p><a href="https://github.com/DhirAnu12/Vision">GitHub →</a></p>
+      </article>
+
+      <article class="project" id="project-volatile" role="tabpanel" aria-labelledby="project-tab-volatile" tabindex="0" hidden>
+        <div class="project-head">
+          <h3>Volatile <span class="code-id mono">VOL-005</span></h3>
+          <span class="status">STATUS: IN PROGRESS</span>
+        </div>
+        <p class="tagline">A tracker that compares implied volatility against realized volatility.</p>
+        <ul>
+          <li>Shows where options are pricing in more or less movement than the stock actually makes</li>
+          <li>Flags when the gap between implied and realized gets unusually wide</li>
+        </ul>
+        <p class="stack mono">TODO: stack</p>
+      </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROFESSIONAL ===================== -->
+    <section class="view-panel" id="professional" role="tabpanel" aria-labelledby="main-tab-professional" tabindex="0" hidden>
+      <h2>Professional</h2>
+      <p class="section-intro">Where I've been.</p>
+
+      <div class="phase">
+        <p class="phase-label">School</p>
+        <div class="entry">
+          <h4>Rutgers Business School</h4>
+          <p>Finance + Computer Science · Class of 2029 · GPA 3.7</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <p class="phase-label">Work</p>
+        <div class="entry">
+          <h4>ClearDhan — Marketing Intern</h4>
+          <p>Helped build social media presence from the ground up for a company focused on helping traders, publishing daily posts that break down IPOs, Fed decisions, and inflation data for retail investors in a consistent, branded voice.</p>
+        </div>
+        <div class="entry">
+          <h4>Project Destined — Private Equity Intern</h4>
+          <p>Completed an intensive real estate private equity program covering valuation, deal structuring, and underwriting, ending with an investment thesis pitched in a competition after stress-testing it alongside fellow analysts.</p>
+        </div>
+        <div class="entry">
+          <h4>Best Brains — Instructor and Assistant</h4>
+          <p>Taught students the basics of Python, Java, and HTML through hands-on lessons, designing coding exercises that raised assignment completion rates while supporting lead instructors across multiple classes.</p>
+        </div>
+      </div>
+
+      <div class="phase">
+        <p class="phase-label">Now</p>
+        <div class="entry">
+          <h4>Currently building</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WRITING ===================== -->
+    <section class="view-panel" id="writing" role="tabpanel" aria-labelledby="main-tab-writing" tabindex="0" hidden>
+      <p class="kicker">TRANSMISSIONS</p>
+      <h2>Writing</h2>
+      <p class="section-intro">My blog, where I break down the computer science projects I'm building, what's moving in the markets right now, and where AI and finance are heading. It's a mix of build logs, market notes, and ideas I'm still working through.</p>
+      <ul class="topic-tags" aria-label="Topics">
+        <li>CS Projects</li>
+        <li>Markets</li>
+        <li>AI</li>
+        <li>Finance</li>
+      </ul>
+      <div class="coming-soon">
+        <span class="signal-dot" aria-hidden="true"></span>
+        <p class="mono">TX // AWAITING FIRST TRANSMISSION</p>
+        <h3>Coming Soon</h3>
+      </div>
+      <!-- When posts are ready, replace .coming-soon with a .post block for each article:
+      <div class="post">
+        <a href="#">Post title</a>
+        <p class="date mono">TX // 2026.10.14</p>
+      </div>
+      -->
+    </section>
+
+    <!-- ===================== PERSONAL ===================== -->
+    <section class="view-panel" id="personal" role="tabpanel" aria-labelledby="main-tab-personal" tabindex="0" hidden>
+      <p class="kicker">CREW FILE</p>
+      <h2>Personal</h2>
+      <p class="section-intro">The off-screen side.</p>
+      <div class="project-console personal-console">
+        <div class="project-rail" role="tablist" aria-label="Select a topic" aria-orientation="vertical">
+          <button class="project-tab" id="personal-tab-hobbies" type="button" role="tab" aria-selected="true" aria-controls="personal-hobbies" tabindex="0">
+            <span class="project-tab-index">01 / HBY-001</span><span class="project-tab-name">Hobbies</span>
+          </button>
+          <button class="project-tab" id="personal-tab-curiosities" type="button" role="tab" aria-selected="false" aria-controls="personal-curiosities" tabindex="-1">
+            <span class="project-tab-index">02 / CUR-002</span><span class="project-tab-name">Curiosities</span>
+          </button>
+          <button class="project-tab" id="personal-tab-books" type="button" role="tab" aria-selected="false" aria-controls="personal-books" tabindex="-1">
+            <span class="project-tab-index">03 / BKS-003</span><span class="project-tab-name">Books</span>
+          </button>
+          <button class="project-tab" id="personal-tab-convictions" type="button" role="tab" aria-selected="false" aria-controls="personal-convictions" tabindex="-1">
+            <span class="project-tab-index">04 / CNV-004</span><span class="project-tab-name">Convictions</span>
+          </button>
+        </div>
+        <div class="project-stage-wrap">
+          <div class="project-stage">
+            <article class="project personal-card" id="personal-hobbies" role="tabpanel" aria-labelledby="personal-tab-hobbies" tabindex="0">
+              <span class="tile-label">// HOBBIES</span>
+              <h3>Hobbies</h3>
+              <p class="tagline">What I do when I'm not building.</p>
+              <ol class="book-list">
+                <li class="book"><span class="book-num">01</span><span class="book-title">Chess</span></li>
+                <li class="book"><span class="book-num">02</span><span class="book-title">Powerlifting</span></li>
+                <li class="book"><span class="book-num">03</span><span class="book-title">Tennis</span></li>
+                <li class="book"><span class="book-num">04</span><span class="book-title">Soccer</span></li>
+                <li class="book"><span class="book-num">05</span><span class="book-title">Cooking</span></li>
+                <li class="book"><span class="book-num">06</span><span class="book-title">Yu-Gi-Oh!</span></li>
+                <li class="book"><span class="book-num">07</span><span class="book-title">Anime</span></li>
+              </ol>
+            </article>
+            <article class="project personal-card" id="personal-curiosities" role="tabpanel" aria-labelledby="personal-tab-curiosities" tabindex="0" hidden>
+              <span class="tile-label">// CURIOSITIES</span>
+              <h3>Curiosities</h3>
+              <p class="tagline">Rabbit holes I keep going down.</p>
+              <ol class="book-list">
+                <li class="book"><span class="book-num">01</span><span class="book-title">Markets</span></li>
+                <li class="book"><span class="book-num">02</span><span class="book-title">Game Theory</span></li>
+                <li class="book"><span class="book-num">03</span><span class="book-title">Stoicism</span></li>
+                <li class="book"><span class="book-num">04</span><span class="book-title">Space Exploration</span></li>
+                <li class="book"><span class="book-num">05</span><span class="book-title">Productivity Systems</span></li>
+              </ol>
+            </article>
+            <article class="project personal-card" id="personal-books" role="tabpanel" aria-labelledby="personal-tab-books" tabindex="0" hidden>
+              <span class="tile-label">// BOOKS</span>
+              <h3>Books</h3>
+              <p class="tagline">What I've been reading.</p>
+              <ol class="book-list">
+                <li class="book"><span class="book-num">01</span><span class="book-title">Cosmos</span><span class="book-author">Carl Sagan</span></li>
+                <li class="book"><span class="book-num">02</span><span class="book-title">Reminiscences of a Stock Operator</span><span class="book-author">Edwin Lefèvre</span></li>
+                <li class="book"><span class="book-num">03</span><span class="book-title">Market Wizards</span><span class="book-author">Jack D. Schwager</span></li>
+                <li class="book"><span class="book-num">04</span><span class="book-title">Reality Transurfing (Steps I–V)</span><span class="book-author">Vadim Zeland</span></li>
+                <li class="book"><span class="book-num">05</span><span class="book-title">Thinking, Fast and Slow</span><span class="book-author">Daniel Kahneman</span></li>
+                <li class="book"><span class="book-num">06</span><span class="book-title">Percy Jackson and the Olympians</span><span class="book-author">Rick Riordan</span></li>
+              </ol>
+            </article>
+            <article class="project personal-card" id="personal-convictions" role="tabpanel" aria-labelledby="personal-tab-convictions" tabindex="0" hidden>
+              <span class="tile-label">// CONVICTIONS</span>
+              <h3>Convictions</h3>
+              <p class="tagline">Lines I live by.</p>
+              <div class="quote-list">
+                <figure class="quote">
+                  <blockquote>“Don't sacrifice today for tomorrow, invest today for tomorrow.”</blockquote>
+                  <figcaption>— Me</figcaption>
+                </figure>
+                <figure class="quote">
+                  <blockquote>“Right here, right now, I will push past my limits.”</blockquote>
+                  <figcaption>— Asta, <cite>Black Clover</cite></figcaption>
+                </figure>
+                <figure class="quote">
+                  <blockquote>“Why do we fall, Bruce? So we can learn to pick ourselves up.”</blockquote>
+                  <figcaption>— Thomas Wayne, <cite>Batman Begins</cite></figcaption>
+                </figure>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="view-panel" id="contact" role="tabpanel" aria-labelledby="main-tab-contact" tabindex="0" hidden>
+      <h2>Contact</h2>
+      <ul class="contact-list">
+        <li><a href="https://www.linkedin.com/in/dhir-anupalli-53493b159/">LinkedIn</a> <span class="contact-note">(preferred)</span></li>
+        <li><a href="https://github.com/DhirAnu12">GitHub</a></li>
+        <li><a href="mailto:hellodhir10@gmail.com">hellodhir10@gmail.com</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 Dhir Anupalli</div>
+  </footer>
+
+  <script>
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mainTabs = [...document.querySelectorAll(".main-tab")];
+    const mainPanels = mainTabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
+    // Washes the page from the top-right corner in the open section's planet color
+    function updateTint(panel) {
+      const badge = panel.querySelector(".panel-planet");
+      const color = badge ? badge.style.getPropertyValue("--planet-color") : "transparent";
+      document.body.style.setProperty("--tint", color);
+    }
+    const selectMainPanel = (selectedIndex, options = {}) => {
+      const { moveFocus = false, updateHistory = false, animate = true } = options;
+      mainTabs.forEach((tab, index) => {
+        const selected = index === selectedIndex;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        mainPanels[index].hidden = !selected;
+      });
+      const activePanel = mainPanels[selectedIndex];
+      activePanel.classList.remove("view-enter");
+      if (animate && !reduceMotion) {
+        void activePanel.offsetWidth;
+        activePanel.classList.add("view-enter");
+      }
+      updateTint(activePanel);
+      if (moveFocus) mainTabs[selectedIndex].focus();
+      if (updateHistory) history.pushState(null, "", `#${activePanel.id}`);
+    };
+
+    const initialPanelIndex = mainTabs.findIndex((tab) => tab.getAttribute("aria-controls") === location.hash.slice(1));
+    if (initialPanelIndex > 0) selectMainPanel(initialPanelIndex, { animate: false });
+    mainTabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => selectMainPanel(index, { updateHistory: true }));
+      tab.addEventListener("keydown", (event) => {
+        let nextIndex = index;
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = (index + 1) % mainTabs.length;
+        else if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = (index - 1 + mainTabs.length) % mainTabs.length;
+        else if (event.key === "Home") nextIndex = 0;
+        else if (event.key === "End") nextIndex = mainTabs.length - 1;
+        else return;
+        event.preventDefault();
+        selectMainPanel(nextIndex, { moveFocus: true, updateHistory: true });
+      });
+    });
+    const solarSystem = document.querySelector(".solar-system");
+    // Each section gets its planet hovering in the top corner
+    document.querySelectorAll(".solar-planet").forEach((planet) => {
+      const panel = document.getElementById(planet.dataset.target);
+      if (!panel) return;
+      const styles = getComputedStyle(planet);
+      const badge = document.createElement("button");
+      badge.className = "panel-planet";
+      badge.type = "button";
+      badge.setAttribute("aria-label", "Back to Home");
+      badge.style.setProperty("--planet-color", styles.getPropertyValue("--planet-color"));
+      badge.style.setProperty("--planet-size", styles.getPropertyValue("--planet-size"));
+      badge.innerHTML = '<span class="planet-core" aria-hidden="true"></span><span class="planet-name">Home</span>';
+      panel.appendChild(badge);
+    });
+    updateTint(mainPanels.find((panel) => !panel.hidden));
+
+    const isWarping = () => document.body.classList.contains("is-warping");
+    const restingRect = (core) => {
+      core.style.animation = "none";
+      const rect = core.getBoundingClientRect();
+      core.style.animation = "";
+      return rect;
+    };
+    const originIn = (el, x, y) => {
+      const bounds = el.getBoundingClientRect();
+      return `${x - bounds.left}px ${y - bounds.top}px`;
+    };
+
+    // Fly into one planet, swap sections behind it, then settle into the matching planet on the other side
+    const warpThroughPlanet = async (fromCore, targetIndex, findToCore) => {
+      const from = fromCore.getBoundingClientRect();
+      const size = from.width;
+      const cx = from.left + size / 2;
+      const cy = from.top + size / 2;
+      const coverScale = (2 * Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy))) / size + 2;
+      const leavingPanel = mainPanels.find((panel) => !panel.hidden);
+
+      document.body.classList.add("is-warping");
+      const warp = document.createElement("div");
+      warp.className = "planet-warp";
+      warp.style.setProperty("--planet-color", getComputedStyle(fromCore).getPropertyValue("--planet-color"));
+      Object.assign(warp.style, { left: `${cx - size / 2}px`, top: `${cy - size / 2}px`, width: `${size}px`, height: `${size}px` });
+      document.body.appendChild(warp);
+      const fromHolder = fromCore.closest(".panel-planet") || fromCore;
+      fromHolder.style.visibility = "hidden";
+
+      // Zoom in: the page drifts toward the planet while the planet slowly fills the screen
+      leavingPanel.style.transformOrigin = originIn(leavingPanel, cx, cy);
+      const leaving = leavingPanel.animate(
+        [{ transform: "scale(1)", opacity: 1 }, { transform: "scale(2.2)", opacity: 0 }],
+        { duration: 1300, easing: "cubic-bezier(.45,0,.75,.4)", fill: "forwards" }
+      );
+      await warp.animate(
+        [{ transform: "scale(1)" }, { transform: `scale(${coverScale})` }],
+        { duration: 1400, easing: "cubic-bezier(.55,0,.8,.2)", fill: "forwards" }
+      ).finished;
+
+      // Swap sections while the screen is covered
+      selectMainPanel(targetIndex, { updateHistory: true, animate: false });
+      leaving.cancel();
+      leavingPanel.style.transformOrigin = "";
+      window.scrollTo(0, 0);
+      const toCore = findToCore(mainPanels[targetIndex]);
+      const target = restingRect(toCore);
+      const tx = target.left + target.width / 2;
+      const ty = target.top + target.height / 2;
+      const toHolder = toCore.closest(".panel-planet") || toCore;
+      toHolder.style.visibility = "hidden";
+
+      // Zoom out: the new page pulls back into view as the planet settles into its spot
+      const arrivingPanel = mainPanels[targetIndex];
+      arrivingPanel.style.transformOrigin = originIn(arrivingPanel, tx, ty);
+      const arriving = arrivingPanel.animate(
+        [{ transform: "scale(1.6)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }],
+        { duration: 1000, easing: "cubic-bezier(.16,1,.3,1)" }
+      );
+      await warp.animate(
+        [
+          { transform: `translate(0, 0) scale(${coverScale})` },
+          { transform: `translate(${tx - cx}px, ${ty - cy}px) scale(${target.width / size})` }
+        ],
+        { duration: 1000, easing: "cubic-bezier(.16,1,.3,1)", fill: "forwards" }
+      ).finished;
+      await arriving.finished;
+
+      arrivingPanel.style.transformOrigin = "";
+      toHolder.style.visibility = "";
+      fromHolder.style.visibility = "";
+      warp.remove();
+      document.body.classList.remove("is-warping");
+    };
+
+    const canWarp = () => !reduceMotion && !!Element.prototype.animate;
+    document.querySelectorAll(".solar-planet").forEach((planet) => {
+      const targetIndex = mainTabs.findIndex((tab) => tab.getAttribute("aria-controls") === planet.dataset.target);
+      if (targetIndex < 0) return;
+      planet.addEventListener("click", () => {
+        if (isWarping()) return;
+        if (!canWarp()) selectMainPanel(targetIndex, { updateHistory: true });
+        else warpThroughPlanet(planet.querySelector(".planet-core"), targetIndex, (panel) => panel.querySelector(".panel-planet .planet-core"));
+      });
+      // Clicking the corner planet in a section flies back out to Home
+      const badge = mainPanels[targetIndex].querySelector(".panel-planet");
+      badge.addEventListener("click", () => {
+        if (isWarping()) return;
+        if (!canWarp()) selectMainPanel(0, { updateHistory: true });
+        else warpThroughPlanet(badge.querySelector(".planet-core"), 0, () => planet.querySelector(".planet-core"));
+      });
+    });
+    window.addEventListener("popstate", () => {
+      const panelIndex = mainTabs.findIndex((tab) => tab.getAttribute("aria-controls") === location.hash.slice(1));
+      selectMainPanel(panelIndex >= 0 ? panelIndex : 0);
+    });
+
+    const revealTargets = document.querySelectorAll(".project, .phase, .tile, .post");
+    revealTargets.forEach((target) => target.classList.add("reveal"));
+    if (reduceMotion) {
+      revealTargets.forEach((target) => target.classList.add("is-visible"));
+    } else {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.12 });
+      revealTargets.forEach((target) => revealObserver.observe(target));
+    }
+
+    // Each console (Projects, Personal) is a rail of tabs on the left and a tilting stage on the right
+    document.querySelectorAll(".project-console").forEach((consoleEl) => {
+      const projectTabs = [...consoleEl.querySelectorAll(".project-tab")];
+      const projectPanels = projectTabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
+      const selectProject = (selectedIndex, moveFocus = false) => {
+        projectTabs.forEach((tab, index) => {
+          const selected = index === selectedIndex;
+          tab.setAttribute("aria-selected", String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+          projectPanels[index].hidden = !selected;
+        });
+        const activePanel = projectPanels[selectedIndex];
+        activePanel.classList.remove("project-enter");
+        void activePanel.offsetWidth;
+        activePanel.classList.add("project-enter");
+        if (moveFocus) projectTabs[selectedIndex].focus();
+      };
+
+      projectTabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => selectProject(index));
+        tab.addEventListener("keydown", (event) => {
+          let nextIndex = index;
+          if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % projectTabs.length;
+          else if (event.key === "ArrowUp" || event.key === "ArrowLeft") nextIndex = (index - 1 + projectTabs.length) % projectTabs.length;
+          else if (event.key === "Home") nextIndex = 0;
+          else if (event.key === "End") nextIndex = projectTabs.length - 1;
+          else return;
+          event.preventDefault();
+          selectProject(nextIndex, true);
+        });
+      });
+
+      const projectStageWrap = consoleEl.querySelector(".project-stage-wrap");
+      const projectStage = consoleEl.querySelector(".project-stage");
+      if (!reduceMotion && !window.matchMedia("(pointer: coarse)").matches) {
+        projectStageWrap.addEventListener("pointermove", (event) => {
+          const bounds = projectStageWrap.getBoundingClientRect();
+          const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+          const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+          projectStage.style.setProperty("--tilt-x", `${-y * 5}deg`);
+          projectStage.style.setProperty("--tilt-y", `${x * 7}deg`);
+          projectStage.style.setProperty("--shift-x", `${x * -5}px`);
+          projectStage.style.setProperty("--shift-y", `${y * -5}px`);
+        });
+        projectStageWrap.addEventListener("pointerleave", () => {
+          projectStage.style.setProperty("--tilt-x", "0deg");
+          projectStage.style.setProperty("--tilt-y", "0deg");
+          projectStage.style.setProperty("--shift-x", "0px");
+          projectStage.style.setProperty("--shift-y", "0px");
+        });
+      }
+    });
+
+    const canvas = document.querySelector("#starfield");
+    const context = canvas.getContext("2d");
+    const starRgb = getComputedStyle(document.documentElement).getPropertyValue("--star-rgb").trim();
+    let stars = [];
+    let frame;
+    let width = 0;
+    let height = 0;
+
+      const resize = () => {
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * ratio;
+        canvas.height = height * ratio;
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        const count = Math.min(110, Math.floor(width * height / 10000));
+        stars = Array.from({ length: count }, (_, index) => {
+          const depth = index < 5 ? "near" : index < Math.floor(count * 0.28) ? "middle" : "far";
+          return {
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: depth === "near" ? 1.15 + Math.random() * 0.25 : depth === "middle" ? 0.65 + Math.random() * 0.35 : 0.25 + Math.random() * 0.4,
+            alpha: depth === "near" ? 0.6 : depth === "middle" ? 0.28 + Math.random() * 0.12 : 0.1 + Math.random() * 0.12,
+            phase: Math.random() * Math.PI * 2,
+            drift: depth === "near" ? 0.035 + Math.random() * 0.02 : depth === "middle" ? 0.02 + Math.random() * 0.015 : 0.008 + Math.random() * 0.012,
+            halo: depth === "near"
+          };
+        });
+      };
+
+    const draw = (time) => {
+        context.clearRect(0, 0, width, height);
+        stars.forEach((star) => {
+          if (!reduceMotion) {
+            star.y -= star.drift;
+            if (star.y < -1) { star.y = height + 1; star.x = Math.random() * width; }
+          }
+          const alpha = reduceMotion ? star.alpha : star.alpha * (0.72 + Math.sin(time * 0.00025 + star.phase) * 0.28);
+          context.beginPath();
+          context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+          context.shadowBlur = star.halo ? 8 : 0;
+          context.shadowColor = star.halo ? `rgba(${starRgb}, 0.28)` : "transparent";
+          context.fillStyle = `rgba(${starRgb}, ${alpha})`;
+          context.fill();
+        });
+        context.shadowBlur = 0;
+        if (!reduceMotion) frame = window.requestAnimationFrame(draw);
+    };
+
+    resize();
+    if (reduceMotion) draw(0);
+    else frame = window.requestAnimationFrame(draw);
+    window.addEventListener("resize", () => {
+      resize();
+      if (reduceMotion) draw(0);
+    }, { passive: true });
+    if (!reduceMotion) {
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) window.cancelAnimationFrame(frame);
+        else frame = window.requestAnimationFrame(draw);
+      });
+    }
+  </script>
+
+</body>
+</html>
