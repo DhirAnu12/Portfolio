@@ -727,8 +727,11 @@
           <button class="project-tab" id="project-tab-vision" type="button" role="tab" aria-selected="false" aria-controls="project-vision" tabindex="-1">
             <span class="project-tab-index">04 / VSN-004</span><span class="project-tab-name">Vision</span>
           </button>
+          <button class="project-tab" id="project-tab-montecarlo" type="button" role="tab" aria-selected="false" aria-controls="project-montecarlo" tabindex="-1">
+            <span class="project-tab-index">05 / MCR-005</span><span class="project-tab-name">Monte Carlo</span>
+          </button>
           <button class="project-tab" id="project-tab-volatile" type="button" role="tab" aria-selected="false" aria-controls="project-volatile" tabindex="-1">
-            <span class="project-tab-index">05 / VOL-005</span><span class="project-tab-name">Volatile</span>
+            <span class="project-tab-index">06 / VOL-006</span><span class="project-tab-name">Volatile</span>
           </button>
         </div>
         <div class="project-stage-wrap">
@@ -794,9 +797,25 @@
         <p><a href="https://github.com/DhirAnu12/Vision">GitHub →</a></p>
       </article>
 
+      <article class="project" id="project-montecarlo" role="tabpanel" aria-labelledby="project-tab-montecarlo" tabindex="0" hidden>
+        <div class="project-head">
+          <h3>Monte Carlo <span class="code-id mono">MCR-005</span></h3>
+          <span class="status">STATUS: FINISHED</span>
+        </div>
+        <p class="tagline">A Monte Carlo risk model for an options portfolio.</p>
+        <ul>
+          <li>Simulates thousands of correlated price paths and reprices every option on each one</li>
+          <li>Reports VaR, CVaR and probability of profit, with a P&amp;L histogram and fan charts</li>
+          <li>Prices each contract at its market implied vol, falling back to historical vol on bad quotes</li>
+          <li>About 200 offline tests, checked against Black-Scholes and put-call parity</li>
+        </ul>
+        <p class="stack mono">Python · NumPy · SciPy · pandas · Matplotlib · yfinance</p>
+        <p><a href="https://github.com/DhirAnu12/Monte-Carlo-Risk-Model">GitHub →</a></p>
+      </article>
+
       <article class="project" id="project-volatile" role="tabpanel" aria-labelledby="project-tab-volatile" tabindex="0" hidden>
         <div class="project-head">
-          <h3>Volatile <span class="code-id mono">VOL-005</span></h3>
+          <h3>Volatile <span class="code-id mono">VOL-006</span></h3>
           <span class="status">STATUS: IN PROGRESS</span>
         </div>
         <p class="tagline">A tracker that compares implied volatility against realized volatility.</p>
